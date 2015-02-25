@@ -30,8 +30,10 @@ namespace arkitektum.kommit.ebyggesak
             );
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new DefaultContractResolver();
             config.Formatters.JsonFormatter.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
-       
-            config.Formatters.XmlFormatter.UseXmlSerializer = true;
+            var formatters = GlobalConfiguration.Configuration.Formatters;
+
+            formatters.Remove(formatters.XmlFormatter);
+
         }
     }
 }
