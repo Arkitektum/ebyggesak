@@ -6,6 +6,7 @@ using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using System.Web.Http.Cors;
+using Newtonsoft.Json;
 
 namespace arkitektum.kommit.ebyggesak
 {
@@ -29,7 +30,9 @@ namespace arkitektum.kommit.ebyggesak
                 defaults: new { id = RouteParameter.Optional }
             );
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new DefaultContractResolver();
-            config.Formatters.JsonFormatter.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+            config.Formatters.JsonFormatter.SerializerSettings.Re‌ferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            config.Formatters.JsonFormatter.SerializerSettings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
+
             var formatters = GlobalConfiguration.Configuration.Formatters;
 
             formatters.Remove(formatters.XmlFormatter);

@@ -1,5 +1,4 @@
 ﻿using arkitektum.kommit.ebyggesak.Models;
-using Arkitektum.kommit.ebyggesak.model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +16,7 @@ namespace arkitektum.kommit.ebyggesak.Controllers
 
         [Route("api")]
         [HttpGet]
-        public LinkListeType GetRootApi()
+        public Links GetRootApi()
         {
             var url = HttpContext.Current.Request.Url;
             var baseUri =
@@ -36,8 +35,8 @@ namespace arkitektum.kommit.ebyggesak.Controllers
             linker.Add(Set.addTempLink(baseUri, "api/milepeler", Set._REL + "/milepel", "?$filter&$orderby&$top&$skip&$search"));
             linker.Add(Set.addTempLink(baseUri, "api/mangler", Set._REL + "/mangel", "?$filter&$orderby&$top&$skip&$search"));
 
-            LinkListeType liste = new LinkListeType();
-            liste._links = linker.ToArray();
+            Links liste = new Links();
+            liste.Links = linker.ToArray();
             return liste;
         }
 
@@ -115,17 +114,18 @@ namespace arkitektum.kommit.ebyggesak.Controllers
                 m.systemId = id;
                 m.saksnummer = new SaksnummerType() { saksaar = "2014", sakssekvensnummer = "12345" };
                 m.adresse = "testgate 26";
-                m.bygningsnummer = "123456789";
+                m.bygningsnummer = 123456789;
                 List<SaksnummerType> referanser = new List<SaksnummerType>();
                 referanser.Add(new SaksnummerType() { saksaar = "2014", sakssekvensnummer = "123" });
-                m.referanseAndreSaker = referanser.ToArray();
+                m.referanseAndreSaker = new SaksnummerListe();
+                m.referanseAndreSaker.saksnummer =  referanser.ToArray();
 
 
                 List<LinkType> linker = new List<LinkType>();
                 linker.Add(Set.addLink(baseUri, "api/byggesak/" + m.systemId, "self"));
                 linker.Add(Set.addTempLink(baseUri, "api/byggesak/" + m.systemId + "/prosesser", Set._REL + "/prosess", "?$filter&$orderby&$top&$skip&$search"));
 
-                m._links = linker.ToArray();
+                m.Links = linker.ToArray();
             }
             if (m == null)
             {
@@ -155,7 +155,7 @@ namespace arkitektum.kommit.ebyggesak.Controllers
             linker.Add(Set.addLink(baseUri, "api/byggesak/" + m.systemId, "self"));
             linker.Add(Set.addTempLink(baseUri, "api/byggesak/" + m.systemId + "/prosesser", Set._REL + "/prosess", "?$filter&$orderby&$top&$skip&$search"));
 
-            m._links = linker.ToArray();
+            m.Links = linker.ToArray();
             if (m == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -273,7 +273,7 @@ namespace arkitektum.kommit.ebyggesak.Controllers
             linker.Add(Set.addTempLink(baseUri, "api/prosess/" + m.systemId + "/vedtak", Set._REL + "/vedtak", "?$filter&$orderby&$top&$skip&$search"));
             linker.Add(Set.addTempLink(baseUri, "api/prosess/" + m.systemId + "/mangler", Set._REL + "/mangel", "?$filter&$orderby&$top&$skip&$search"));
 
-            m._links = linker.ToArray();
+            m.Links = linker.ToArray();
             if (m == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -309,7 +309,7 @@ namespace arkitektum.kommit.ebyggesak.Controllers
             linker.Add(Set.addTempLink(baseUri, "api/prosess/" + m.systemId + "/vedtak", Set._REL + "/vedtak", "?$filter&$orderby&$top&$skip&$search"));
             linker.Add(Set.addTempLink(baseUri, "api/prosess/" + m.systemId + "/mangler", Set._REL + "/mangel", "?$filter&$orderby&$top&$skip&$search"));
 
-            m._links = linker.ToArray();
+            m.Links = linker.ToArray();
             if (m == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -344,7 +344,7 @@ namespace arkitektum.kommit.ebyggesak.Controllers
             linker.Add(Set.addTempLink(baseUri, "api/prosess/" + m.systemId + "/vedtak", Set._REL + "/vedtak", "?$filter&$orderby&$top&$skip&$search"));
             linker.Add(Set.addTempLink(baseUri, "api/prosess/" + m.systemId + "/mangler", Set._REL + "/mangel", "?$filter&$orderby&$top&$skip&$search"));
 
-            m._links = linker.ToArray();
+            m.Links = linker.ToArray();
             if (m == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -380,7 +380,7 @@ namespace arkitektum.kommit.ebyggesak.Controllers
             linker.Add(Set.addTempLink(baseUri, "api/prosess/" + m.systemId + "/vedtak", Set._REL + "/vedtak", "?$filter&$orderby&$top&$skip&$search"));
             linker.Add(Set.addTempLink(baseUri, "api/prosess/" + m.systemId + "/mangler", Set._REL + "/mangel", "?$filter&$orderby&$top&$skip&$search"));
 
-            m._links = linker.ToArray();
+            m.Links = linker.ToArray();
             if (m == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -416,7 +416,7 @@ namespace arkitektum.kommit.ebyggesak.Controllers
             linker.Add(Set.addTempLink(baseUri, "api/prosess/" + m.systemId + "/vedtak", Set._REL + "/vedtak", "?$filter&$orderby&$top&$skip&$search"));
             linker.Add(Set.addTempLink(baseUri, "api/prosess/" + m.systemId + "/mangler", Set._REL + "/mangel", "?$filter&$orderby&$top&$skip&$search"));
 
-            m._links = linker.ToArray();
+            m.Links = linker.ToArray();
             if (m == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -501,7 +501,7 @@ namespace arkitektum.kommit.ebyggesak.Controllers
             linker.Add(Set.addLink(baseUri, "api/prosess/" + m.systemId, Set._REL + "/prosess"));
             linker.Add(Set.addTempLink(baseUri, "api/milepel/" + m.systemId + "/aktiviteter", Set._REL + "/aktivitet", "?$filter&$orderby&$top&$skip&$search"));
 
-            m._links = linker.ToArray();
+            m.Links = linker.ToArray();
             if (m == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -532,7 +532,7 @@ namespace arkitektum.kommit.ebyggesak.Controllers
             linker.Add(Set.addLink(baseUri, "api/prosess/R23456789", Set._REL + "/prosess"));
             linker.Add(Set.addTempLink(baseUri, "api/milepel/" + m.systemId + "/aktiviteter", Set._REL + "/aktivitet", "?$filter&$orderby&$top&$skip&$search"));
 
-            m._links = linker.ToArray();
+            m.Links = linker.ToArray();
             if (m == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -563,7 +563,7 @@ namespace arkitektum.kommit.ebyggesak.Controllers
             linker.Add(Set.addLink(baseUri, "api/prosess/R23456789", Set._REL + "/prosess"));
             linker.Add(Set.addTempLink(baseUri, "api/milepel/" + m.systemId + "/aktiviteter", Set._REL + "/aktivitet", "?$filter&$orderby&$top&$skip&$search"));
 
-            m._links = linker.ToArray();
+            m.Links = linker.ToArray();
             if (m == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -591,7 +591,7 @@ namespace arkitektum.kommit.ebyggesak.Controllers
             linker.Add(Set.addLink(baseUri, "api/prosess/R23456789", Set._REL + "/prosess"));
             linker.Add(Set.addTempLink(baseUri, "api/milepel/" + m.systemId + "/aktiviteter", Set._REL + "/aktivitet", "?$filter&$orderby&$top&$skip&$search"));
 
-            m._links = linker.ToArray();
+            m.Links = linker.ToArray();
             if (m == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -621,7 +621,7 @@ namespace arkitektum.kommit.ebyggesak.Controllers
             linker.Add(Set.addLink(baseUri, "api/prosess/R23456789", Set._REL + "/prosess"));
             linker.Add(Set.addTempLink(baseUri, "api/milepel/" + m.systemId + "/aktiviteter", Set._REL + "/aktivitet", "?$filter&$orderby&$top&$skip&$search"));
 
-            m._links = linker.ToArray();
+            m.Links = linker.ToArray();
             if (m == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -682,8 +682,9 @@ namespace arkitektum.kommit.ebyggesak.Controllers
             m.status = new VedtakstypeType() { kode = "1", beskrivelse = "Godkjent" };
             
             m.beskrivelse = "Vedtak om oppføring av enebolig";
-            m.referanseVedtaksdokument = "23535";
-            m.referanseUnderlag = new string[] {"34544", "45434"};
+            m.referanseDokumentVedtak = "23535";
+            m.referanseUnderlagsdokumenter = new SystemIDListe();
+            m.referanseUnderlagsdokumenter.systemid = new string[] {"34544", "45434"};
             m.vedtaksdato = DateTime.Now;
 
             List<LinkType> linker = new List<LinkType>();
@@ -691,7 +692,7 @@ namespace arkitektum.kommit.ebyggesak.Controllers
             linker.Add(Set.addLink(baseUri, "api/prosess/" + id, Set._REL + "/prosess"));
             
 
-            m._links = linker.ToArray();
+            m.Links = linker.ToArray();
             if (m == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -714,18 +715,20 @@ namespace arkitektum.kommit.ebyggesak.Controllers
             m.status = new VedtakstypeType() { kode = "1", beskrivelse = "Godkjent" };
 
             m.beskrivelse = "Planutvalgsbehandling av søknad om rammetillatelse - tilbygg til eksisterende industribygg - Hegdalveien 87 - gbnr. 1019/23, 62. Søknad om dispensasjon for oppføring av tilbygg over byggegrense.";
-            m.referanseVedtaksdokument = "709212";
-            m.referanseUnderlag = new string[] { "710983", "697766", "697770", "697769", "697768", "697767", "697764", "697761", "710210", "710211", "710971", "710970" };
+            m.referanseDokumentVedtak = "709212";
+            m.referanseUnderlagsdokumenter = new SystemIDListe();
+            m.referanseUnderlagsdokumenter.systemid = new string[] { "710983", "697766", "697770", "697769", "697768", "697767", "697764", "697761", "710210", "710211", "710971", "710970" };
             m.vedtaksdato = new DateTime(2013, 5, 7);
             List<DispensasjonType> disp = new List<DispensasjonType>();
-            disp.Add(new DispensasjonType() { dispensasjonstype = "PLAN", beskrivelse = "I medhold av Plan- og bygningsloven (pbl.) §19-2 gis det dispensasjon for plassering av tilbygget over regulert byggegrense mot Hegdalveien." });
-            m.dispensasjoner = disp.ToArray();
+            disp.Add(new DispensasjonType() { dispensasjonstype = new DispensasjonstypeType() { kode = "PLAN", beskrivelse = "Arealplan" }, begrunnelse = "I medhold av Plan- og bygningsloven (pbl.) §19-2 gis det dispensasjon for plassering av tilbygget over regulert byggegrense mot Hegdalveien." });
+            m.dispensasjoner = new DispensasjonListe();
+            m.dispensasjoner.dispensasjon = disp.ToArray();
             List<LinkType> linker = new List<LinkType>();
             linker.Add(Set.addLink(baseUri, "api/vedtak/" + id, "self"));
             linker.Add(Set.addLink(baseUri, "api/prosess/R23456789" , Set._REL + "/prosess"));
 
 
-            m._links = linker.ToArray();
+            m.Links = linker.ToArray();
             if (m == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -788,7 +791,7 @@ namespace arkitektum.kommit.ebyggesak.Controllers
             linker.Add(Set.addLink(baseUri, "api/milepel/" + id, Set._REL + "/milepel"));
 
 
-            m._links = linker.ToArray();
+            m.Links = linker.ToArray();
             if (m == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -842,7 +845,7 @@ namespace arkitektum.kommit.ebyggesak.Controllers
                     url.Port).Uri;
 
             MangelType m = new MangelType();
-            m.status = "UF";// new AktivitetsstatusType() { kode = "UF", beskrivelse = "Utført" };
+            m.status = new MangelstatusType() {kode = "UF", beskrivelse = "Utført" };
             m.type = new MangeltypeType() { kode = "KART", beskrivelse = "Mangler situasjonskart" };
             
 
@@ -851,7 +854,7 @@ namespace arkitektum.kommit.ebyggesak.Controllers
             linker.Add(Set.addLink(baseUri, "api/prosess/" + id, Set._REL + "/prosess"));
 
 
-            m._links = linker.ToArray();
+            m.Links = linker.ToArray();
             if (m == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bs="http://skjema.kxml.no/byggesak/0.9" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sawsdl="http://www.w3.org/ns/sawsdl" xmlns:matrikkelfellesns="http://rep.geointegrasjon.no/Matrikkel/Felles/xml.schema/2012.01.31" xmlns:fellesgeometrins="http://rep.geointegrasjon.no/Felles/Geometri/xml.schema/2012.01.31" xmlns:rest="http://www.kxml.no/rest/1.0" targetNamespace="http://skjema.kxml.no/byggesak/0.9" elementFormDefault="qualified">
+	<!-- Generert av MetaTrans(1.1.0.0) - 12.10.2016 16.58.12-->
+	<xs:import namespace="http://rep.geointegrasjon.no/Matrikkel/Felles/xml.schema/2012.01.31" schemaLocation="http://rep.geointegrasjon.no/Matrikkel/Felles/xml.schema/2012.01.31/giMatrikkelFelles20120131.xsd"/>
+	<xs:import namespace="http://rep.geointegrasjon.no/Felles/Geometri/xml.schema/2012.01.31" schemaLocation="http://rep.geointegrasjon.no/Felles/Geometri/xml.schema/2012.01.31/giFellesGeometri20120131.xsd"/>
+	<xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="http://www.w3.org/1999/xlink.xsd"/>	
+	<xs:import namespace="http://www.kxml.no/rest/1.0" schemaLocation="rest.xsd"/>
+	<xs:element name="Aktivitet" type="bs:AktivitetType"/>
+	<xs:complexType name="AktivitetListe">
+		<xs:sequence>
+			<xs:element name="aktivitet" type="bs:AktivitetType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="xlink:simpleAttrs"/>
+	</xs:complexType>
+	<xs:complexType name="AktivitetType" sawsdl:modelReference="http://kommit.metakat.no/Objekttype/Index/EAID_BEA79465_4F5C_4793_9F67_3F6A4F86468A">
+		<xs:complexContent>
+			<xs:extension base="rest:AbstraktResourceType">
+				<xs:sequence>
+					<xs:element name="typeSjekk" type="bs:SjekkpunkttypeType" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="status" type="bs:AktivitetsstatusType" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="beskrivelse" type="xs:string" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="frist" type="xs:dateTime" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="kommentar" type="xs:string" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="ansvarlig" type="xs:string" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="dokumentkategori" type="xs:string" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="referanseJournalpost" type="bs:SystemIDType" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="referanseDokument" type="bs:SystemIDType" nillable="true" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Aktivitetsstatus" type="bs:AktivitetsstatusType" sawsdl:modelReference="http://kommit.metakat.no/Objekttype/Index/EAID_053F4F62_478C_4622_8362_8F75DB52FE15"/>
+	<xs:complexType name="AktivitetsstatusType">
+		<xs:sequence>
+			<xs:element name="kode" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="beskrivelse" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Byggesak" type="bs:ByggesakType"/>
+	<xs:complexType name="ByggesakListe">
+		<xs:sequence>
+			<xs:element name="byggesak" type="bs:ByggesakType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="xlink:simpleAttrs"/>
+	</xs:complexType>
+	<xs:complexType name="ByggesakType" sawsdl:modelReference="http://kommit.metakat.no/Objekttype/Index/EAID_C4DFF602_F7AF_4f23_A96D_45C69571DC1F">
+		<xs:complexContent>
+			<xs:extension base="rest:AbstraktResourceType">
+				<xs:sequence>
+					<xs:element name="systemId" type="xs:string" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="saksnummer" type="bs:SaksnummerType" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="referanseKlagesaker" type="bs:SaksnummerListe" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="referanseAndreSaker" type="bs:SaksnummerListe" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="tittel" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="adresse" type="xs:string" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="posisjon" type="fellesgeometrins:Punkt" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="matrikkelnummer" type="matrikkelfellesns:MatrikkelnummerListe" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="bygningsnummer" type="xs:long" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="registrertDato" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="avsluttetDato" type="xs:dateTime" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="saksbehandling" type="bs:ProsessListe" nillable="true" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Dispensasjon" type="bs:DispensasjonType"/>
+	<xs:complexType name="DispensasjonListe">
+		<xs:sequence>
+			<xs:element name="dispensasjon" type="bs:DispensasjonType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="xlink:simpleAttrs"/>
+	</xs:complexType>
+	<xs:complexType name="DispensasjonType" sawsdl:modelReference="http://kommit.metakat.no/Objekttype/Index/EAID_CA5ECEF8_62F1_4614_AA98_17B2E415F731">
+		<xs:complexContent>
+			<xs:extension base="rest:AbstraktResourceType">
+				<xs:sequence>
+					<xs:element name="dispensasjonstype" type="bs:DispensasjonstypeType" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="begrunnelse" type="xs:string" nillable="true" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Dispensasjonstype" type="bs:DispensasjonstypeType" sawsdl:modelReference="http://kommit.metakat.no/Objekttype/Index/EAID_EFDC72D0_3DFE_459d_88F2_EEDCF540BC73"/>
+	<xs:complexType name="DispensasjonstypeType">
+		<xs:sequence>
+			<xs:element name="kode" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="beskrivelse" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Fase" type="bs:FaseType"/>
+	<xs:complexType name="FaseListe">
+		<xs:sequence>
+			<xs:element name="fase" type="bs:FaseType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="xlink:simpleAttrs"/>
+	</xs:complexType>
+	<xs:complexType name="FaseType" sawsdl:modelReference="http://kommit.metakat.no/Objekttype/Index/EAID_1454800D_56A4_437d_A295_C042AF31EB1B">
+		<xs:complexContent>
+			<xs:extension base="rest:AbstraktResourceType">
+				<xs:sequence>
+					<xs:element name="fasenavn" type="xs:string" minOccurs="1" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Gebyrlinje" type="bs:GebyrlinjeType"/>
+	<xs:complexType name="GebyrlinjeListe">
+		<xs:sequence>
+			<xs:element name="gebyrlinje" type="bs:GebyrlinjeType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="xlink:simpleAttrs"/>
+	</xs:complexType>
+	<xs:complexType name="GebyrlinjeType" sawsdl:modelReference="http://kommit.metakat.no/Objekttype/Index/EAID_8111C1EB_BB32_480f_9E49_90256229D957">
+		<xs:complexContent>
+			<xs:extension base="rest:AbstraktResourceType">
+				<xs:sequence>
+					<xs:element name="id" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="artikkelnummer" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="beskrivelse" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="antall" type="xs:double" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="enhet" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="pris" type="xs:double" minOccurs="1" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Mangel" type="bs:MangelType"/>
+	<xs:complexType name="MangelListe">
+		<xs:sequence>
+			<xs:element name="mangel" type="bs:MangelType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="xlink:simpleAttrs"/>
+	</xs:complexType>
+	<xs:complexType name="MangelType" sawsdl:modelReference="http://kommit.metakat.no/Objekttype/Index/EAID_B57285F2_4E49_4cac_ACDE_FA9C755BE023">
+		<xs:complexContent>
+			<xs:extension base="rest:AbstraktResourceType">
+				<xs:sequence>
+					<xs:element name="systemId" type="xs:string" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="type" type="bs:MangeltypeType" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="status" type="bs:MangelstatusType" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="registrertDato" type="xs:dateTime" nillable="true" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Mangelstatus" type="bs:MangelstatusType" sawsdl:modelReference="http://kommit.metakat.no/Objekttype/Index/EAID_64DC966F_74E2_44eb_95F3_1051747A0E66"/>
+	<xs:complexType name="MangelstatusType">
+		<xs:sequence>
+			<xs:element name="kode" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="beskrivelse" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Mangeltype" type="bs:MangeltypeType" sawsdl:modelReference="http://kommit.metakat.no/Objekttype/Index/EAID_A950BF94_C2D9_402c_B976_CC6B3A76BAE2"/>
+	<xs:complexType name="MangeltypeType">
+		<xs:sequence>
+			<xs:element name="kode" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="beskrivelse" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Milepel" type="bs:MilepelType"/>
+	<xs:complexType name="MilepelListe">
+		<xs:sequence>
+			<xs:element name="milepel" type="bs:MilepelType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="xlink:simpleAttrs"/>
+	</xs:complexType>
+	<xs:complexType name="MilepelType" sawsdl:modelReference="http://kommit.metakat.no/Objekttype/Index/EAID_5F0FE18D_1620_4497_924B_117992F577E7">
+		<xs:complexContent>
+			<xs:extension base="rest:AbstraktResourceType">
+				<xs:sequence>
+					<xs:element name="systemId" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="beskrivelse" type="xs:string" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="kategori" type="bs:MilepeltypeType" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="frist" type="xs:date" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="utfoert" type="xs:date" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="journaldato" type="xs:date" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="intern" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="referanseJournalpost" type="bs:SystemIDType" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="referanseDokument" type="bs:SystemIDType" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="faseFoerMilepel" type="bs:FaseType" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="faseEtterMilepel" type="bs:FaseType" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="sjekkliste" type="bs:AktivitetListe" nillable="true" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Milepeltype" type="bs:MilepeltypeType" sawsdl:modelReference="http://kommit.metakat.no/Objekttype/Index/EAID_62AFC7BB_2285_4ae6_9C64_77F431B772F6"/>
+	<xs:complexType name="MilepeltypeType">
+		<xs:sequence>
+			<xs:element name="kode" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="beskrivelse" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Prosess" type="bs:ProsessType"/>
+	<xs:complexType name="ProsessListe">
+		<xs:sequence>
+			<xs:element name="prosess" type="bs:ProsessType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="xlink:simpleAttrs"/>
+	</xs:complexType>
+	<xs:complexType name="ProsessType" sawsdl:modelReference="http://kommit.metakat.no/Objekttype/Index/EAID_08AFA472_2EEC_4b84_82CA_E86939AF1ACA">
+		<xs:complexContent>
+			<xs:extension base="rest:AbstraktResourceType">
+				<xs:sequence>
+					<xs:element name="systemId" type="xs:string" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="kategori" type="bs:ProsesskategoriType" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="antallUkerFrist" type="xs:integer" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="medDispensasjon" type="xs:boolean" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="medReguleringsendring" type="xs:boolean" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="prosesskoe" type="xs:string" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="prosessteam" type="xs:string" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="prosessansvarlig" type="xs:string" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="gebyrunderlag" type="bs:GebyrlinjeListe" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="resultat" type="bs:VedtakListe" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="milepeler" type="bs:MilepelListe" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="mangler" type="bs:MangelListe" nillable="true" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Prosesskategori" type="bs:ProsesskategoriType" sawsdl:modelReference="http://kommit.metakat.no/Objekttype/Index/EAID_100D4A1E_0D7B_4cfe_8B32_4C397B45125F"/>
+	<xs:complexType name="ProsesskategoriType">
+		<xs:sequence>
+			<xs:element name="kode" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="beskrivelse" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Saksnummer" type="bs:SaksnummerType"/>
+	<xs:complexType name="SaksnummerListe">
+		<xs:sequence>
+			<xs:element name="saksnummer" type="bs:SaksnummerType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="xlink:simpleAttrs"/>
+	</xs:complexType>
+	<xs:complexType name="SaksnummerType" sawsdl:modelReference="http://kommit.metakat.no/Objekttype/Index/EAID_F7775CDE_9E52_4487_91E8_F0A2D09560F7">
+		<xs:sequence>
+			<xs:element name="saksaar" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="sakssekvensnummer" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Sjekkpunkttype" type="bs:SjekkpunkttypeType" sawsdl:modelReference="http://kommit.metakat.no/Objekttype/Index/EAID_DF53DA6B_057B_4502_9E23_D5828EDB0EE6"/>
+	<xs:complexType name="SjekkpunkttypeType">
+		<xs:sequence>
+			<xs:element name="kode" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="beskrivelse" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="SystemIDType">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:complexType name="SystemIDListe">
+		<xs:sequence>
+			<xs:element name="systemid" type="bs:SystemIDType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="xlink:simpleAttrs"/>
+	</xs:complexType>
+	<xs:element name="Vedtak" type="bs:VedtakType"/>
+	<xs:complexType name="VedtakListe">
+		<xs:sequence>
+			<xs:element name="vedtak" type="bs:VedtakType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="xlink:simpleAttrs"/>
+	</xs:complexType>
+	<xs:complexType name="VedtakType" sawsdl:modelReference="http://kommit.metakat.no/Objekttype/Index/EAID_839240BE_AC14_45b8_A51F_AC98674D3AFB">
+		<xs:complexContent>
+			<xs:extension base="rest:AbstraktResourceType">
+				<xs:sequence>
+					<xs:element name="systemId" type="xs:string" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="beskrivelse" type="xs:string" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="vedtaksdato" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="status" type="bs:VedtakstypeType" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="referanseDokumentVedtak" type="bs:SystemIDType" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="referanseJournalpostVedtak" type="bs:SystemIDType" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="referanseUnderlagsdokumenter" type="bs:SystemIDListe" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="dispensasjoner" type="bs:DispensasjonListe" nillable="true" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Vedtakstype" type="bs:VedtakstypeType" sawsdl:modelReference="http://kommit.metakat.no/Objekttype/Index/EAID_5B465D32_D2CA_4c3b_84C1_334D7D4072A5"/>
+	<xs:complexType name="VedtakstypeType">
+		<xs:sequence>
+			<xs:element name="kode" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="beskrivelse" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
